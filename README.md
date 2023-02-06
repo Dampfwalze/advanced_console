@@ -1,22 +1,13 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+Advanced console features for Dart.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+> With version 0.0.1, only ANSI text styling is supported.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- [SGR parameters](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters) (like: bold, italic, etc.),
+- [3-bit and 4-bit colors](https://en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit) (With `ConsoleColor`),
+- [8-bit colors](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) (With `ConsoleColor256`),
+- [24-bit rgb colors](https://en.wikipedia.org/wiki/ANSI_escape_code#24-bit) (With `ConsoleColorRGB`),
 
 ## Getting started
 
@@ -25,15 +16,18 @@ start using the package.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
+Use the `style` function to apply styles to text:
 ```dart
-const like = 'sample';
+print(style("Hello World", ConsoleTextStyle(color: ConsoleColor.yellow, bold: true)));
+```
+
+Or use one of the many shortcuts:
+```dart
+print(red("I have a sunburn"));
+print(bold("I'm fat"));
+print(italic("I might tip over"));
 ```
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+This package is work in progress, but you are welcome to leave your feedback!
