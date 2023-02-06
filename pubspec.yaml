@@ -1,6 +1,6 @@
 name: advanced_console
 description: Advanced console functionalities for Dart
-version: 1.0.0
+version: 0.0.1
 repository: https://github.com/Dampfwalze/advanced_console
 
 environment:
