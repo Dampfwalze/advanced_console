@@ -1,3 +1,3 @@
-## 1.0.0
+## 0.0.1 (2016-05-31)
 
-- Initial version.
+- ANSI text styling
