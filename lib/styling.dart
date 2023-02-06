@@ -15,5 +15,6 @@ library advanced_console.styling;
 import 'package:advanced_console/advanced_console.dart';
 
 export 'src/styling/color.dart';
-export 'src/styling/text_style.dart';
+export 'src/styling/shortcuts.dart';
 export 'src/styling/style.dart';
+export 'src/styling/text_style.dart';
