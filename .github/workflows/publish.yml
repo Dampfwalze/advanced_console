@@ -1,10 +1,10 @@
-name: Verify
+name: Publish
 
 on:
   push:
-    branches: ["master", "release"]
+    branches: ["release"]
   pull_request:
-    branches: ["master", "release"]
+    branches: ["release"]
 
 jobs:
   verify:
@@ -30,3 +30,20 @@ jobs:
 
       - name: Run tests
         run: dart test
+
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # You can specify other versions if desired, see documentation here:
+      # https://github.com/dart-lang/setup-dart/blob/main/README.md
+      # - uses: dart-lang/setup-dart@v1
+      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Publish package
+        run: dart pub publish
