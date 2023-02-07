@@ -22,7 +22,7 @@ jobs:
         run: dart pub get
 
       - name: Verify formatting
-        run: dart format --output=none --set-exit-if-changed . -l 100
+        run: dart format --output=none --set-exit-if-changed .
 
       # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
