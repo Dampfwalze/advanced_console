@@ -3,7 +3,8 @@ import 'package:advanced_console/advanced_console.dart';
 /// Colors the [input] with the given [color].
 ///
 /// Also see [style] and [red], [green], etc.
-String color(ConsoleColor color, Object input, {bool background = false, bool reset = true}) =>
+String color(ConsoleColor color, Object input,
+        {bool background = false, bool reset = true}) =>
     style(
       input,
       ConsoleTextStyle(
@@ -66,8 +67,10 @@ String white(Object input, {bool background = false, bool reset = true}) =>
 /// Colors the [input] bright black.
 ///
 /// Also see [style].
-String blackBright(Object input, {bool background = false, bool reset = true}) =>
-    color(ConsoleColor.blackBright, input, background: background, reset: reset);
+String blackBright(Object input,
+        {bool background = false, bool reset = true}) =>
+    color(ConsoleColor.blackBright, input,
+        background: background, reset: reset);
 
 /// Colors the [input] bright red.
 ///
@@ -78,14 +81,18 @@ String redBright(Object input, {bool background = false, bool reset = true}) =>
 /// Colors the [input] bright green.
 ///
 /// Also see [style].
-String greenBright(Object input, {bool background = false, bool reset = true}) =>
-    color(ConsoleColor.greenBright, input, background: background, reset: reset);
+String greenBright(Object input,
+        {bool background = false, bool reset = true}) =>
+    color(ConsoleColor.greenBright, input,
+        background: background, reset: reset);
 
 /// Colors the [input] bright yellow.
 ///
 /// Also see [style].
-String yellowBright(Object input, {bool background = false, bool reset = true}) =>
-    color(ConsoleColor.yellowBright, input, background: background, reset: reset);
+String yellowBright(Object input,
+        {bool background = false, bool reset = true}) =>
+    color(ConsoleColor.yellowBright, input,
+        background: background, reset: reset);
 
 /// Colors the [input] bright blue.
 ///
@@ -96,8 +103,10 @@ String blueBright(Object input, {bool background = false, bool reset = true}) =>
 /// Colors the [input] bright magenta.
 ///
 /// Also see [style].
-String magentaBright(Object input, {bool background = false, bool reset = true}) =>
-    color(ConsoleColor.magentaBright, input, background: background, reset: reset);
+String magentaBright(Object input,
+        {bool background = false, bool reset = true}) =>
+    color(ConsoleColor.magentaBright, input,
+        background: background, reset: reset);
 
 /// Colors the [input] bright cyan.
 ///
@@ -108,15 +117,18 @@ String cyanBright(Object input, {bool background = false, bool reset = true}) =>
 /// Colors the [input] bright white.
 ///
 /// Also see [style].
-String whiteBright(Object input, {bool background = false, bool reset = true}) =>
-    color(ConsoleColor.whiteBright, input, background: background, reset: reset);
+String whiteBright(Object input,
+        {bool background = false, bool reset = true}) =>
+    color(ConsoleColor.whiteBright, input,
+        background: background, reset: reset);
 
 // Styles
 
 /// Styles the [input] bold
 ///
 /// Also see [style].
-String bold(Object input, {bool reset = true}) => style(input, ConsoleTextStyle(bold: true), reset);
+String bold(Object input, {bool reset = true}) =>
+    style(input, ConsoleTextStyle(bold: true), reset);
 
 /// Styles the [input] italic
 ///

@@ -71,7 +71,8 @@ class ConsoleColor256 extends ConsoleColor {
   const ConsoleColor256(this.ansiCode);
 
   /// Converts a value between 0 and 1 to a 256 color code in the gray scale range.
-  ConsoleColor256.grayScale(double value) : this(_lerpDouble(232, 255, value.clamp(0, 1)).round());
+  ConsoleColor256.grayScale(double value)
+      : this(_lerpDouble(232, 255, value.clamp(0, 1)).round());
 }
 
 /// ANSI 24-bit rgb color codes. See https://en.wikipedia.org/wiki/ANSI_escape_code#24-bit
