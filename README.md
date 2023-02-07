@@ -1,3 +1,6 @@
+[![Pub Version](https://img.shields.io/pub/v/advanced_console)](https://pub.dev/packages/advanced_console)
+[![Verify](https://github.com/Dampfwalze/advanced_console/actions/workflows/verify.yml/badge.svg)](https://github.com/Dampfwalze/advanced_console/actions/workflows/verify.yml)
+
 Advanced console features for Dart.
 
 > With version 0.0.1, only ANSI text styling is supported.
@@ -8,11 +11,6 @@ Advanced console features for Dart.
 - [3-bit and 4-bit colors](https://en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit) (With `ConsoleColor`),
 - [8-bit colors](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) (With `ConsoleColor256`),
 - [24-bit rgb colors](https://en.wikipedia.org/wiki/ANSI_escape_code#24-bit) (With `ConsoleColorRGB`),
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
 
 ## Usage
 
