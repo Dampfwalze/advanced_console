@@ -2,6 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:advanced_console/src/console/ansi_stream.dart';
+import 'package:async/async.dart';
+
 part 'console_sink.dart';
 
 class Console {
@@ -13,11 +16,12 @@ class Console {
         _err = err ?? stderr,
         _inp = inp ?? stdin {
     _outSink = _ConsoleSink(this);
-    _streamSubscription = _outSink.controller.stream.listen(
-      _outSinkListener,
-      onError: _outSinkErrorListener,
-      onDone: _outSinkDoneListener,
-    );
+    _streamSubscription =
+        _outSink.controller.stream.transform(AnsiStreamParser()).listen(
+              _outSinkListener,
+              onError: _outSinkErrorListener,
+              onDone: _outSinkDoneListener,
+            );
   }
 
   final Stdout _out;
@@ -30,10 +34,17 @@ class Console {
   Stdout get err => _err;
   Stdin get inp => _inp;
 
-  late final StreamSubscription<List<int>> _streamSubscription;
+  late final StreamSubscription<AnsiSymbol> _streamSubscription;
 
-  void _outSinkListener(List<int> data) {
-    _out.add(data);
+  void _outSinkListener(AnsiSymbol data) {
+    final int lineOffset = 3;
+    if (data is AnsiCharacter) {
+      _out.add([data.codeUnit]);
+    } else if (data is AnsiSingleControlCharacter) {
+      _out.add([data.codeUnit]);
+    } else if (data is AnsiEscape) {
+      _out.write(data.sequence);
+    }
   }
 
   void _outSinkErrorListener(Object error, StackTrace stackTrace) {
