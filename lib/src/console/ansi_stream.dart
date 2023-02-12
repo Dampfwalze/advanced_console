@@ -13,10 +13,10 @@ class AnsiStreamParser extends StreamTransformerBase<List<int>, AnsiSymbol> {
 
     var isEscape = false;
     var isCSI = false;
+    var isTerminatedEsc = false;
 
     void onData(int c) {
       if (isEscape) {
-        // TODO: OSC (Operating System Command) sequences
         if (isCSI) {
           if (!_isCSIParameterCharacter(c)) {
             buffer.writeCharCode(c);
@@ -29,15 +29,28 @@ class AnsiStreamParser extends StreamTransformerBase<List<int>, AnsiSymbol> {
           }
           return;
         }
-        if (_isLastCharacterInEscapeSequence(c)) {
+        if (isTerminatedEsc) {
+          if (c == r'\'.codeUnitAt(0)) {
+            buffer.writeCharCode(c);
+            controller.add(AnsiTerminatedEsc(buffer.toString()));
+            buffer.clear();
+            isEscape = false;
+            isTerminatedEsc = false;
+          } else {
+            buffer.writeCharCode(c);
+          }
+          return;
+        }
+        if (c == '['.codeUnitAt(0)) {
+          isCSI = true;
+        } else if (_isTerminatedEsc(c)) {
+          isTerminatedEsc = true;
+        } else if (_isLastCharacterInEscapeSequence(c)) {
           buffer.writeCharCode(c);
           controller.add(AnsiEscape(buffer.toString()));
           buffer.clear();
           isEscape = false;
         } else {
-          if (c == '['.codeUnitAt(0)) {
-            isCSI = true;
-          }
           buffer.writeCharCode(c);
         }
         return;
@@ -47,7 +60,7 @@ class AnsiStreamParser extends StreamTransformerBase<List<int>, AnsiSymbol> {
           buffer.writeCharCode(c);
           isEscape = true;
         } else {
-          controller.add(AnsiCharacter(c));
+          controller.add(AnsiSingleControlCharacter(c));
         }
       } else {
         controller.add(AnsiCharacter(c));
@@ -72,10 +85,8 @@ class AnsiStreamParser extends StreamTransformerBase<List<int>, AnsiSymbol> {
   }
 
   bool _isLastCharacterInEscapeSequence(int c) {
-    // @ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_ except [
-    return c >= '@'.codeUnitAt(0) &&
-        c <= '_'.codeUnitAt(0) &&
-        c != '['.codeUnitAt(0);
+    // @ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+    return c >= '@'.codeUnitAt(0) && c <= '_'.codeUnitAt(0);
   }
 
   /// See: https://www.real-world-systems.com/docs/ANSIcode.html#CSI
@@ -95,6 +106,14 @@ class AnsiStreamParser extends StreamTransformerBase<List<int>, AnsiSymbol> {
   bool _isC0ControlCharacter(int c) {
     return c >= 0 && c <= 31;
   }
+
+  bool _isTerminatedEsc(int c) => <int>{
+        'P'.codeUnitAt(0),
+        'X'.codeUnitAt(0),
+        ']'.codeUnitAt(0),
+        '^'.codeUnitAt(0),
+        '_'.codeUnitAt(0),
+      }.contains(c);
 }
 
 abstract class AnsiSymbol {
@@ -134,4 +153,8 @@ class AnsiEscape extends AnsiControl {
 
 class AnsiCSI extends AnsiEscape {
   const AnsiCSI(super.sequence);
+}
+
+class AnsiTerminatedEsc extends AnsiEscape {
+  const AnsiTerminatedEsc(super.sequence);
 }
